@@ -21,8 +21,6 @@ class Tail extends EventEmitter {
         this.lastEnd = 0;
         this.lineBuffer = '';
 
-        this.fd = fs.openSync(filename, 'r');
-
         const watcher = fs.watch(filename);
 
         watcher.on('change', (eventType, filename) => {
@@ -38,7 +36,7 @@ class Tail extends EventEmitter {
                     // normal operation
                     if (start <= end) {
                         setImmediate(() => {
-                            this.read(start, end);
+                            this.read(filename, start, end);
                         });
                     }
 
@@ -56,9 +54,8 @@ class Tail extends EventEmitter {
     }
 
 
-    read(start, end) {
-        const reader = fs.createReadStream('', {
-            fd: this.fd,
+    read(filename, start, end) {
+        const reader = fs.createReadStream(filename, {
             start: start,
             end: end,
             autoClose: false
