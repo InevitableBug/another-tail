@@ -17,10 +17,13 @@ class Tail extends EventEmitter {
         extend(this.options, options);
 
         this.filename = filename;
-        this.position = {start: 0, end: 0};
         this.lastEnd = 0;
         this.lineBuffer = '';
 
+        // get the initial size of the file
+        const stat = fs.statSync(filename);
+        this.position = {start: stat.size, end: stat.size};
+        
         const watcher = fs.watch(filename);
 
         watcher.on('change', (eventType, filename) => {
