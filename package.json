@@ -1,6 +1,6 @@
 {
   "name": "another-tail",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Node module to tail files.",
   "main": "index.js",
   "repository": "https://github.com/nbowke/another-tail",
