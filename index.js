@@ -61,7 +61,7 @@ class Tail extends EventEmitter {
         const reader = fs.createReadStream(filename, {
             start: start,
             end: end,
-            autoClose: false
+            autoClose: true
         });
 
         reader.on('data', (data) => {
